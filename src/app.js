@@ -10,7 +10,7 @@ app.post("/signup", async (req, res) => {
     await user.save();
     res.send("user saved");
   } catch (err) {
-    res.status(400).send("not send", err);
+    res.status(400).send("not send" + err.message);
   }
 });
 app.get("/userDetails", async (req, res) => {
@@ -20,7 +20,7 @@ app.get("/userDetails", async (req, res) => {
     res.send(users);
     console.log(users);
   } catch (err) {
-    res.status(400).send("not send", err);
+    res.status(400).send("not send" + err.message);
   }
 });
 connectDB()
