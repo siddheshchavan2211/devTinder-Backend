@@ -13,6 +13,16 @@ app.post("/signup", async (req, res) => {
     res.status(400).send("not send", err);
   }
 });
+app.get("/userDetails", async (req, res) => {
+  try {
+    const users = await User.find({});
+
+    res.send(users);
+    console.log(users);
+  } catch (err) {
+    res.status(400).send("not send", err);
+  }
+});
 connectDB()
   .then(() => {
     console.log("connected");
