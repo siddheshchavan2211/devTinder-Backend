@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 const { Schema } = mongoose;
 const userSchema = new Schema(
   {
@@ -16,9 +17,19 @@ const userSchema = new Schema(
       unique: true,
       required: true,
       trim: true,
+      validate(v) {
+        if (!validator.isEmail(v)) {
+          throw new Error("Invalid Email" + v);
+        }
+      },
     },
     password: {
       type: String,
+      validate(v) {
+        if (!validator.isStrongPassword(v)) {
+          throw new Error("Password is not strong enough" + v);
+        }
+      },
     },
     mobile: {
       type: Number,
@@ -42,9 +53,19 @@ const userSchema = new Schema(
       type: String,
       required: true,
       default: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+      validate(v) {
+        if (!validator.isURL(v)) {
+          throw new Error("Invalid Photo Url");
+        }
+      },
     },
     skills: {
       type: [String],
+    },
+    about: {
+      type: String,
+      required: true,
+      default: "This is a sample about",
     },
   },
   {
