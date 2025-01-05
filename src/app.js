@@ -5,6 +5,8 @@ const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+const { UserAuthorization } = require("./middleware/Authorization");
+const user = require("./models/user");
 app.use(express.json());
 app.use(cookieParser());
 app.post("/signup", async (req, res) => {
@@ -31,10 +33,12 @@ app.post("/login", async (req, res) => {
     if (!findUser) {
       throw new Error("Invalid credentials");
     }
-    const decryptpass = await bcrypt.compare(password, findUser.password);
+    const decryptpass = await findUser.validatePassword(password);
     if (decryptpass) {
-      const token = await jwt.sign({ _id: findUser.id }, "Morya@22112001");
-      res.cookie("token", token);
+      const token = await findUser.getJWT();
+      res.cookie("token", token, {
+        expires: new Date(Date.now() + 8 * 3600000),
+      });
       res.send("login success");
     } else {
       throw new Error("Invalid credentials");
@@ -43,18 +47,12 @@ app.post("/login", async (req, res) => {
     res.status(400).send("Error:" + err.message);
   }
 });
-app.get("/profile", async (req, res) => {
+app.get("/profile", UserAuthorization, async (req, res) => {
   try {
-    const cookie = req.cookies;
-    const { token } = cookie;
-    if (!token) {
-      throw new Error("Invalid credentials");
-    }
-    const decode = await jwt.verify(token, "Morya@22112001");
-    const userInfo = await User.findById(decode._id);
-    res.send(userInfo);
+    const user = req.user;
+    res.send(user);
   } catch (err) {
-    res.status(400).send("Error:" + err.message);
+    res.status(400).send("not send" + err.message);
   }
 });
 app.get("/userDetails", async (req, res) => {
