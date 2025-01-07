@@ -37,4 +37,24 @@
 //     res.status(401).send("ooppsssssss");
 //     // } else {
 //   }
-// });
+// // });
+// let a = "siddhesh";
+// let result = "";
+// // for (let i = a.length - 1; i >= 0; i--) {
+// //   result += a[i];
+// //   console.log(result);
+// // }
+
+// let arr = a.split("");
+// console.log(arr);
+// let reverseArr = arr.reverse();
+// let joinarr = reverseArr.join("");
+// console.log(joinarr);
+
+//factorial
+let a = 1;
+if (a < 0) {
+  console.log("invalid num");
+} else if (a * (n - 1)) {
+  console.log(a * (n - 1));
+}
