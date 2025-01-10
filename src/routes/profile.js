@@ -46,15 +46,5 @@ profileRouter.patch("/editPassword", UserAuthorization, async (req, res) => {
     res.status(400).send("Error:" + err.message);
   }
 });
-profileRouter.get("/userDetails", async (req, res) => {
-  try {
-    const users = await User.find({});
-
-    res.send(users);
-    console.log(users);
-  } catch (err) {
-    res.status(400).send("not send" + err.message);
-  }
-});
 
 module.exports = profileRouter;
