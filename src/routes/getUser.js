@@ -57,6 +57,10 @@ userRouter.get("/user/friends", UserAuthorization, async (req, res) => {
 userRouter.get("/feed", UserAuthorization, async (req, res) => {
   try {
     const user = req.user;
+    const page = req.query.page;
+    let limit = req.query.limit;
+    limit = limit > 20 ? 20 : limit;
+    const skip = (page - 1) * limit;
     //get all friends except current user and friends and rejected requests
     //first finding all connection request which i sent or recived then select only senderid and recieverid
     const friends = await ConnReqModel.find({
@@ -76,7 +80,10 @@ userRouter.get("/feed", UserAuthorization, async (req, res) => {
           _id: { $ne: user._id },
         },
       ],
-    }).select("firstName lastName photoUrl skills about age gender mobile");
+    })
+      .select("firstName lastName photoUrl skills about age gender mobile")
+      .skip(skip)
+      .limit(limit);
     res.json({ message: "feed", data: feedUsers });
   } catch (err) {
     res.status(400).send("Error " + err.message);
