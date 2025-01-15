@@ -13,7 +13,7 @@ profileRouter.get("/profile", UserAuthorization, async (req, res) => {
     const user = req.user;
     res.send(user);
   } catch (err) {
-    res.status(400).send("not send" + err.message);
+    res.status(400).send("Error: " + err.message);
   }
 });
 

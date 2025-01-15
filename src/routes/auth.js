@@ -15,8 +15,8 @@ authRouter.post("/signup", async (req, res) => {
       email,
       password: encryptpass,
     });
-    await user.save();
-    res.send("Register Successful");
+    const userdata = await user.save();
+    res.json({ message: "Register Successful", data: userdata });
   } catch (err) {
     res.status(400).send("Resister Failed" + err.message);
   }
@@ -35,9 +35,9 @@ authRouter.post("/login", async (req, res) => {
       res.cookie("token", token, {
         expires: new Date(Date.now() + 8 * 3600000),
       });
-      res.send("Login Successful");
+      res.json({ message: "Login Successful ", LoginUser: findUser });
     } else {
-      throw new Error("Invalid credentials");
+      throw new Error(" Invalid credentials");
     }
   } catch (err) {
     res.status(400).send("Login Failed" + err.message);
