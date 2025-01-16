@@ -19,8 +19,6 @@ connectionrequestRouter.post(
       });
       const touser = await User.findById(req.params.userID);
       const id = req.params.userID;
-      console.log(touser.id.toString());
-      console.log(id.toString());
       if (status !== "Intersted" && status !== "Ignored") {
         throw new Error("Invalid Status");
       }
@@ -74,15 +72,16 @@ connectionrequestRouter.post(
 
       const connRequest = await ConnReqModel.findOne({
         _id: userId,
+        recieverId: loggedInUser._id,
         status: "Intersted",
-        senderId: loggedInUser._id,
       });
+      console.log(connRequest);
       if (!connRequest) {
         throw new Error("No Request Found");
       }
       connRequest.status = status;
-      const data = await connRequest.save();
-      res.json({ message: "Connection Request" + status, data });
+      const updateddata = await connRequest.save();
+      res.json({ message: "Connection Request " + status, updateddata });
     } catch (err) {
       res.status(400).send("Error " + err.message);
     }

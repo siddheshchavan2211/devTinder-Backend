@@ -11,13 +11,13 @@ userRouter.get(
     try {
       const user = req.user;
       const pendingRequests = await ConnReqModel.find({
-        senderId: user._id,
+        recieverId: user._id,
         status: "Intersted",
       }).populate(
         "senderId",
         "firstName lastName photoUrl skills about age gender mobile"
       );
-      res.send({ message: "Data Fetched Successfully", data: pendingRequests });
+      res.json({ message: "Data Fetched Successfully", data: pendingRequests });
     } catch (err) {
       res.status(400).send("Error " + err.message);
     }

@@ -23,7 +23,8 @@ const connRequest = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
+  { strictPopulate: false }
 );
 connRequest.index({ senderId: 1, recieverId: 1 }, { unique: true });
 const ConnReqModel = new mongoose.model("ConnRequest", connRequest);
