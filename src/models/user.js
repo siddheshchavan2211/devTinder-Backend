@@ -72,7 +72,8 @@ const userSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
+  { strictPopulate: false }
 );
 userSchema.methods.getJWT = async function () {
   const user = this;
