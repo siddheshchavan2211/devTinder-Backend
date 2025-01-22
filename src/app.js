@@ -22,7 +22,7 @@ app.use("/", userRouter);
 connectDB()
   .then(() => {
     console.log("connected");
-    app.listen(1000, () => {
+    app.listen(8080, () => {
       console.log("server start");
     });
   })
