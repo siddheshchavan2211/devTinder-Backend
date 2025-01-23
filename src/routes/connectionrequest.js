@@ -3,7 +3,7 @@ const { UserAuthorization } = require("../middleware/Authorization");
 const ConnReqModel = require("../models/connRequest");
 const connectionrequestRouter = express.Router();
 const User = require("../models/user");
-const { run } = require("../utils/sendEmail");
+const sendEmail = require("../utils/sendEmail");
 connectionrequestRouter.post(
   "/request/send/:status/:userID",
   UserAuthorization,
@@ -42,8 +42,8 @@ connectionrequestRouter.post(
       }
       const data = await connRequest.save();
 
-      const emailsend = await SendEmailCommand.run(
-        `Friend Request from ${req.user.firstName}`,
+      const emailsend = await sendEmail.run(
+        `New Friend Request from ${req.user.firstName}`,
         `${req.user.firstName + " "} Request sent successfully to  ${
           touser.firstName
         }`

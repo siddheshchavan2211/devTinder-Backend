@@ -57,7 +57,7 @@ const createSendEmailCommand = (toAddress, fromAddress, Subject, body) => {
 // Function to send the email using SES
 const run = async (Subject, body) => {
   // Replace with actual email addresses
-  const recipientEmail = "siddheshchavan02@gmail.com";
+  const recipientEmail = "chavansiddhesh222@gmail.com";
   const senderEmail = "sidkc1205@gmail.com";
 
   const sendEmailCommand = createSendEmailCommand(
