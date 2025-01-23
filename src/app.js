@@ -3,6 +3,7 @@ const app = express();
 const connectDB = require("./config/database");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+require("dotenv").config();
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -22,7 +23,7 @@ app.use("/", userRouter);
 connectDB()
   .then(() => {
     console.log("connected");
-    app.listen(8080, () => {
+    app.listen(process.env.PORT_NO, () => {
       console.log("server start");
     });
   })

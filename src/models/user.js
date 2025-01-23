@@ -54,7 +54,7 @@ const userSchema = new Schema(
     photoUrl: {
       type: String,
       required: true,
-      default: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+      default: process.env.DEFAULT_IMG,
       validate(v) {
         if (!validator.isURL(v)) {
           throw new Error("Invalid Photo Url");
@@ -77,7 +77,7 @@ const userSchema = new Schema(
 );
 userSchema.methods.getJWT = async function () {
   const user = this;
-  const token = await jwt.sign({ _id: user._id }, "Morya@22112001", {
+  const token = await jwt.sign({ _id: user._id }, process.env.JWT_PASSWORD, {
     expiresIn: "1d",
   });
   return token;

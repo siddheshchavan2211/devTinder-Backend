@@ -1,7 +1,6 @@
 const express = require("express");
 const authRouter = express.Router();
 const bcrypt = require("bcrypt");
-const { validatePassword } = require("../middleware/Authorization");
 const User = require("../models/user");
 
 //Signup API
