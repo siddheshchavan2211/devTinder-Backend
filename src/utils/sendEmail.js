@@ -9,10 +9,12 @@ const createSendEmailCommand = (toAddress, fromAddress, Subject, body) => {
     <html>
       <body>
         <h1>Hello,</h1>
-        <p>This is an example email sent using AWS SES.</p>
-        <p>Here is a <a href="http://example.com">link</a> to check out more information.</p>
+        <p>This is an imp email sent using AWS SES.</p>
+    <h1>${body}</h1>
+
+        <p>Here is a <a href="http://github.com/siddheshchavan2211">link</a> to check out more information.</p>
         <p>Best regards,</p>
-        <p>Your Company Name</p>
+        <p>Sid Information Technology</p>
       </body>
     </html>
   `;
@@ -22,9 +24,8 @@ const createSendEmailCommand = (toAddress, fromAddress, Subject, body) => {
     Hello,
 
     This is an example email sent using AWS SES.
-    ${body}
-    Here is a link to check out more information: http://example.com
-
+    <h1>${body}</h1>
+    Here is a link to check out more information: http://github.com/siddheshchavan2211
     Best regards,
     DevTinder
   `;
