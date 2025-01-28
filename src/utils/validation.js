@@ -34,7 +34,13 @@ const passwordChangedValidation = (req) => {
   }
 };
 
+const subscriptionType = {
+  GOLD: 1000,
+  PLATINUM: 2000,
+};
+
 module.exports = {
   updateProfileValidation,
   passwordChangedValidation,
+  subscriptionType,
 };

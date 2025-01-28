@@ -4,6 +4,8 @@ const connectDB = require("./config/database");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
+require("./utils/cronJob");
+
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -16,10 +18,12 @@ const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const connectionrequestRouter = require("./routes/connectionrequest");
 const userRouter = require("./routes/getUser");
+const paymentRouter = require("./routes/payment");
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", connectionrequestRouter);
 app.use("/", userRouter);
+app.use("/", paymentRouter);
 connectDB()
   .then(() => {
     console.log("connected");
