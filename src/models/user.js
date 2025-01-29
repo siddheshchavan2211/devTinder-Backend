@@ -69,6 +69,13 @@ const userSchema = new Schema(
       required: true,
       default: "This is a sample about",
     },
+    subscriptionStatus: {
+      type: Boolean,
+      default: false,
+    },
+    subscriptionType: {
+      type: String,
+    },
   },
   {
     timestamps: true,
