@@ -57,15 +57,20 @@ paymentRouter.post("/subscription/webhook", async (req, res) => {
     if (!isValid) {
       return res.status(400).json({ message: "Invalid Signature" });
     }
+    console.log(isValid + "isValid");
     const paymentDetails = req.body.payload.payment.entity;
+    console.log(paymentDetails + "paymentDetails");
     const payment = await ordermodel.findOne({ orderId: paymentDetails._id });
     payment.status = paymentDetails.status;
     await payment.save();
+    console.log(payment.status + "payment.status");
 
     const updateUser = await User.findOne({ _id: payment.userId });
     updateUser.subscriptionStatus = true;
     updateUser.subscriptionType = payment.notes.membershipType;
+
     await updateUser.save();
+    console.log(updateUser);
     return res.status(200).json({ message: "Webhook Recieved" });
   } catch (err) {
     res.status(400).send("Error: " + err.message);
