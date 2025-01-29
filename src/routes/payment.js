@@ -79,4 +79,17 @@ paymentRouter.post("/subscription/webhook", async (req, res) => {
     res.status(400).send("Error: " + err.message);
   }
 });
+
+paymentRouter.get(
+  "/subscription/verify",
+  UserAuthorization,
+  async (req, res) => {
+    const user = req.user;
+    if (user.subscriptionStatus) {
+      return res.status(200).json({ subscriptionStatus: true });
+    } else {
+      return res.status(200).json({ subscriptionStatus: false });
+    }
+  }
+);
 module.exports = paymentRouter;
