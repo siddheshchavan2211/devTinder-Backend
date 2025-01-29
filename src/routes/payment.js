@@ -59,10 +59,10 @@ paymentRouter.post("/subscription/webhook", async (req, res) => {
     }
     console.log(isValid + "isValid");
     const paymentDetails = req.body.payload.payment.entity;
-    console.log(paymentDetails + "paymentDetails");
+    console.log("Payment Details:", JSON.stringify(paymentDetails, null, 2));
 
     const payment = await ordermodel.findOne({
-      orderId: paymentDetails.order_id,
+      orderId: paymentDetails.orderId,
     });
     payment.status = paymentDetails.status;
     await payment.save();
