@@ -8,6 +8,8 @@ const User = require("../models/user");
 const {
   validateWebhookSignature,
 } = require("razorpay/dist/utils/razorpay-utils");
+const crypto = require("crypto");
+
 paymentRouter.post("/payment/create", UserAuthorization, async (req, res) => {
   const { firstName, lastName, email } = req.user;
   const { membershipType } = req.body;
@@ -17,7 +19,7 @@ paymentRouter.post("/payment/create", UserAuthorization, async (req, res) => {
     const order = await instance.orders.create({
       amount,
       currency: "INR",
-      receipt: "Receipt No. #1",
+      receipt: crypto.randomUUID(),
       notes: {
         firstName,
         lastName,
